@@ -1,0 +1,34 @@
+1) Warmup problems:
+All the set problems are based on the function called exist, which checks if an item exists in a set. 
+In the subset function, any empty set is a subset of another set. 
+If set 'a' is not empty, I recursively check if the first item in set 'a' exists in set 'b'. 
+If the first item appears in set 'b', the function moves on to check the subsequent item in set 'a'. 
+Otherwise, it return false. In the equal_sets function, 2 sets are equal if they are subsets of each other. 
+In the set_union function, I use @ to obtain the union of 2 sets. 
+In the set_intersection function, I recursively check if the first item in set 'a' exists in set 'b'. 
+If it exists, the first item is added to the intersection. The function is called recursively on the rest of set 'a' and set 'b'. 
+In the set_diff function, I recursively check if the first item in set 'a' exists in set 'b'. 
+If it doesn't exist, the first item is added to the result. The function is called recursively on the rest of set 'a' and set 'b'.
+In the computed_fixed_point function, if f x = x is true, return x as the fixed point. 
+Otherwise, the function is called recursively with the input being the value of (f x)
+In the computed_periodic_point function, 
+if calling f p times (the input for next time is the function of the current input) results in x, return x as the periodic point. 
+Otherwise, the function is called recursively with the input being the function of the current input. 
+One weakness of computed_fixed_point and computed_periodic_point is they never stop the recursion 
+in case the fixed point does not exist for a starting point and a given function.
+
+2) Filter blind alley problem:
+I wrote some helper functions for this problem. I first try to find a set of terminal symbols. 
+Given a pair (symbol, right_hand_side), a symbol is terminal if right_hand_side is terminal. 
+I iterate through all pairs in the given rules to get all possible terminal symbols.
+The function fixed_terminal_set returns a pair of the rules and the terminal symbol set resulted from the rules.
+The function check_rules checks each pair (symbol, right_hand_side) of the rules against the set of terminal symbols. 
+If right_hand_side is in the set, (symbol, right_hand_side) is not a blind alley rule because we can derive a set of terminal symbols from it.
+I define snd_equal as a predicate where it returns true if the second value in 2 pairs are equal.
+The filter_blind_alleys receives a pair (start_symbol, rules) as the input. 
+I use the function computed_fixed_point with the function snd_equal as the predicate and fixed_terminal_set as the function. 
+This will return (rules, a set of terminal symbols). 
+I use function snd to obtain the second item in the pair, which is the set of terminal symbols, 
+then use function check_rules to check if a rule is blind alley or not. 
+
+My implementation passes all the sample test cases.
